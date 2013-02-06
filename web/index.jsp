@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form action="output.jsp" method="get">
+        <form action="ControllerServlet" method="post">
             <table border="0">
                 <tbody>
                     <tr>

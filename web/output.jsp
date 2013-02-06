@@ -13,17 +13,16 @@
     </head>
     <body>
         <h2>Thanks for taking our survey</h2>
+        <jsp:useBean id="surveyData" type="hu.sample.bean.SurveyData" scope="request"></jsp:useBean>
         <p>
-            <%= request.getParameter("fullName")%>, you indicated you are familiar with 
+        <jsp:getProperty property="fullName" name="surveyData"/>, you indicated you are familiar with 
             the following programming languages:
         <ul>
             <%
-                String[] selectedLanguages = request.getParameterValues("progLang");
+                String[] selectedLanguages = surveyData.getProgLangList();
                 
                 if(selectedLanguages!=null){
                     for(String lang : selectedLanguages){
-                
-                        
                 %>
                     <li><%=lang%></li>
                     <%
