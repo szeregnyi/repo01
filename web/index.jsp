@@ -1,3 +1,4 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@page import="hu.sample.bean.CustomerBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -55,8 +56,46 @@
                 </c:forEach>
             </tbody>  
         </table>
-
-
+        <sql:query var="allRows" dataSource="jdbc/sample">
+            SELECT name, city, state FROM customer
+        </sql:query>
+        <table border='1'>
+            <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <th>City</th>
+                    <th>State</th>
+                </tr>
+                <c:forEach var="row" items="${allRows.rows}">
+                    <tr>
+                        <td>${row.name}</td>
+                        <td>${row.city}</td>
+                        <td>${row.state}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+            
+            <sql:query var="result" dataSource="jdbc/sample">
+                SELECT * FROM customer
+            </sql:query>
+    
+            <table border="1">
+                <!-- column headers -->
+                <tr>
+                    <c:forEach var="columnName" items="${result.columnNames}">
+                        <th><c:out value="${columnName}"/></th>
+                        </c:forEach>
+                </tr>
+                <!-- column data -->
+                <c:forEach var="row" items="${result.rowsByIndex}">
+                    <tr>
+                        <c:forEach var="column" items="${row}">
+                            <td><c:out value="${column}"/></td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+            </table>   
 
         <form action="ControllerServlet" method="post">
             <table border="0">
